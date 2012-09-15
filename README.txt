@@ -1,10 +1,10 @@
-Inputvar's purpose is mainly for convience of accessing client (user)
+Inputvar's purpose is mainly for convenience of accessing client (user)
 input in a more safe way.
 
 By using the inputvar classes, you do not have to
 referece the $_GET, $_POST, $_REQUEST, et. al superglobals.
 
-There are also convience methods that allow you to check if a variable 'exists',
+There are also convenience methods that allow you to check if a variable 'exists',
 and provide sanitized values in various formats, eg: mysql escaped, base64, hex, alphanumeric, etc.
 
 Usage:
