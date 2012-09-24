@@ -11,6 +11,9 @@
  * Created:
  *    6/6/2012 by DB
  * 
+ * Distribution / Latest Version:
+ *    http://github.com/katmore/inputvar
+ * 
  */
 
 
