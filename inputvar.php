@@ -1,20 +1,20 @@
 <?php
 /**
- * gateway/include/inputvar.inc.php
- * 
- * Purpose:
- *    the place to use any potentially 'dangerous' input from client
- *    such as _GET _POST vars
- *    
- *    idea: a small place that can be evaluated for proper filtering, security, etc
- * 
- * Created:
- *    6/6/2012 by DB
- * 
- * Distribution / Latest Version:
- *    http://github.com/katmore/inputvar
- * 
- */
+* inputvar.inc.php
+*
+* Purpose:
+* the place to use any potentially 'dangerous' input from client
+* such as _GET _POST vars
+*
+* idea: a small place that can be evaluated for proper filtering, security, etc
+*
+* Created:
+* 6/6/2012 by DB
+*
+* Distribution / Latest Version:
+* http://github.com/katmore/inputvar
+*
+*/
 
 
 
@@ -134,7 +134,7 @@ class postvar extends inputvar {
       return $this->exists;
    }
    
-   public function __construct($key) {
+   protected function initPostvar($key) {
       
       if (preg_match('/[^A-Za-z0-9_]/',$key) ) {
          throw new Exception("getvar key must be alphanumeric",1);
@@ -148,6 +148,10 @@ class postvar extends inputvar {
          $this->setRawval("");
          $this->exists = false;
       }
+   }
+   
+   public function __construct($key) {
+      $this->initPostvar($key);
       
    }/*end getvar.constructor*/
    
@@ -184,3 +188,52 @@ class reqvar extends inputvar {
 
    
 }/* end class reqvar*/
+
+class postvar_withdata extends postvar {
+   private $name;
+   public function __get($what) {
+      if ($what == "name") return $this->name;
+   }
+   public function __construct($key) {
+      
+      $this->initPostvar($key);
+      $this->name = $key;
+      
+   }
+}
+
+class postvar_group {
+   private $postvar;//postvar_withdata
+   public function __get($what) {
+      foreach ($this->postvar as $postvar) {
+         if ($postvar->name == $what) return $postvar;
+      }
+      throw new Exception("key name not found in group",2);
+   }
+   public function __construct() {
+      
+      $numargs = func_num_args();
+      $arg_list = func_get_args();
+      for ($i = 0; $i < $numargs; $i++) {
+         //echo "Argument $i is: " . $arg_list[$i] . "<br />\n";
+         $this->postvar[] = new postvar_withdata($arg_list[$i]);
+      }
+      
+   }
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
