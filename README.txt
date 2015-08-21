@@ -13,18 +13,16 @@ If the request URI is as follows:
 http://example.com/getpage.php?pagename=poop
 
 The following code
-
-`<?php
+<?php
 $page = new getvar('pagename');
 if ($page->exists())
 	echo $page->alphanum();
-?>`
-
+?>
 will display the text 'poop'
 
-It can facilitate POST, GET, or any REQUEST field as follows
+It can facilitate POST, GET, or any REQUEST var as follows
 
-`<?php
+<?php
 //POST var
 $mypostvar = new postvar('mypostvar');
 
@@ -37,11 +35,10 @@ $myreqvar = new reqvar('myreqvar');
 //arbitrary string
 $myvarvar = new varvar('Some stuff I want to put and perhaps filter');
 ?>
-`
 
 The following methods are available to actually get the values
 
-`<?php
+<?php
 
 //value escaped with real_escape_string
 //inputvar::myesc(mysqli $mysqli_resource);
@@ -75,5 +72,4 @@ echo $myinputvar->numeric();
 //inputvar::usphone();
 echo $myinputvar->usphone();
 
-?>`
-
+?>
