@@ -19,6 +19,7 @@ $page = new getvar('pagename');
 if ($page->exists())
 	echo $page->alphanum();
 ?>`
+
 will display the text 'poop'
 
 It can facilitate POST, GET, or any REQUEST field as follows
@@ -35,7 +36,8 @@ $myreqvar = new reqvar('myreqvar');
 
 //arbitrary string
 $myvarvar = new varvar('Some stuff I want to put and perhaps filter');
-?>`
+?>
+`
 
 The following methods are available to actually get the values
 
