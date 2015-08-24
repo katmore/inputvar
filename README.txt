@@ -1,8 +1,18 @@
+--------
+2015-08 Update Notes
+
+I have refactored the inputvar package to be psr-2 and psr-4 compliant.
+I implemented the use of namespaces, created explicit exception classes, 
+and changed to camel casing for class and method names.
+
+I have included 'legacy' support that should work for code using this package
+prior to the August 2015 updates. See the bottom of the inputvar.php file.
+--------
 Inputvar's purpose is mainly for convenience of accessing client (user)
-input in a more safe way.
+input in a more safe way. It is dual-licensed under the GPLv3 and MIT licenses.
 
 By using the inputvar classes, you do not have to
-referece the $_GET, $_POST, $_REQUEST, et. al superglobals.
+referece the $_GET, $_POST, $_REQUEST superglobals.
 
 There are also convenience methods that allow you to check if a variable 'exists',
 and provide sanitized values in various formats, eg: mysql escaped, base64, hex, alphanumeric, etc.
