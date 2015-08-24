@@ -1,239 +1,58 @@
 <?php
 /**
-* inputvar.inc.php
-*
-* Purpose:
-* the place to use any potentially 'dangerous' input from client
-* such as _GET _POST vars
-*
-* idea: a small place that can be evaluated for proper filtering, security, etc
-*
-* Created:
-* 6/6/2012 by DB
-*
-* Distribution / Latest Version:
-* http://github.com/katmore/inputvar
-*
-*/
-
-
-
-class inputvar {
-   
-   private $rawval;
-   
-   public function myesc($myi,$striphighlow=true) {
-      if (!is_a($myi,"mysqli")) throw new Exception("must be given mysqli object",3);
-      $val = $this->rawval;
-      if ($striphighlow) {
-         $val = preg_replace('/[^A-Za-z0-9 _\.\s\#]/', '',$val);
-      }
-      return $myi->real_escape_string($val);
-   }
-   
-   protected function setRawval($rawval) {
-      $this->rawval = $rawval;
-   }
-   
-   public function streetaddr() {
-      return preg_replace('/[^A-Za-z0-9 _\.\s\#]/', '',$this->rawval);
-   }
-   
-   public function value() {
-      
-      $val = $this->rawval;
-      
-      $val = strip_tags($val);
-      
-      preg_replace('/[\x00-\x08\x0B-\x1F]/', '', $val);
-      
-      return $val;
-      //for this generic function remove the most 'dangerous' shit
-      //return filter_var($this->rawval,FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_LOW+FILTER_FLAG_STRIP_HIGH);
-   }
-   
-   public function email() {
-      //return $this->rawval;
-      if ( preg_match(
-         "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/",
-         $this->rawval) ) {
-            return $this->rawval;
-      }
-      throw new Exception("inputvar is not valid email",2);
-   }
-   
-   public function alphanumspace() {
-      return preg_replace('/[^A-Za-z0-9 _]/', '',$this->rawval);
-   }
-   
-   public function numeric() {
-      return preg_replace('/[^0-9]/', '',$this->rawval);
-   }
-   
-   public function alphanum() {
-      
-      $alphanum = preg_replace('/[^A-Za-z0-9_]/', '',$this->rawval);
-      
-      return $alphanum;
-      
-   }
-   
-   public function usphone() {
-      return preg_replace('~(\d{3})[^\d]*(\d{3})[^\d]*(\d{4})$~', '$1-$2-$3', $this->numeric());
-   }
-} /*end class inputvar*/
-
-
-class varvar extends inputvar {
-   
-   public function exists() {
-      return true;
-   }
-   
-   public function __construct($rawval) {
-      $this->setRawval($rawval);
-   }
-}
-
-class getvar extends inputvar {
-   
-   
-   private $exists;
-   
-   public function exists() {
-      return $this->exists;
-   }
-   
-   public function __construct($key) {
-      
-      if (preg_match('/[^A-Za-z0-9_]/',$key) ) {
-         throw new Exception("getvar key must be alphanumeric",1);
-      }
-      
-      
-      if (isset($_GET[$key])) {
-         $this->setRawval($_GET[$key]);
-         $this->exists = true;
-      } else {
-         $this->setRawval("");
-         $this->exists = false;
-      }
-      
-   }/*end getvar.constructor*/
-   
-
-   
-}/* end class getvar*/
-
-class postvar extends inputvar {
-   
-   
-   private $exists;
-   
-   public function exists() {
-      return $this->exists;
-   }
-   
-   protected function initPostvar($key) {
-      
-      if (preg_match('/[^A-Za-z0-9_]/',$key) ) {
-         throw new Exception("getvar key must be alphanumeric",1);
-      }
-      
-      
-      if (isset($_POST[$key])) {
-         $this->setRawval($_POST[$key]);
-         $this->exists = true;
-      } else {
-         $this->setRawval("");
-         $this->exists = false;
-      }
-   }
-   
-   public function __construct($key) {
-      $this->initPostvar($key);
-      
-   }/*end getvar.constructor*/
-   
-
-   
-}/* end class postvar*/
-
-class reqvar extends inputvar {
-   
-   
-   private $exists;
-   
-   public function exists() {
-      return $this->exists;
-   }
-   
-   public function __construct($key) {
-      
-      if (preg_match('/[^A-Za-z0-9_]/',$key) ) {
-         throw new Exception("getvar key must be alphanumeric",1);
-      }
-      
-      
-      if (isset($_REQUEST[$key])) {
-         $this->setRawval($_REQUEST[$key]);
-         $this->exists = true;
-      } else {
-         $this->setRawval("");
-         $this->exists = false;
-      }
-      
-   }/*end getvar.constructor*/
-   
-
-   
-}/* end class reqvar*/
-
-class postvar_withdata extends postvar {
-   private $name;
-   public function __get($what) {
-      if ($what == "name") return $this->name;
-   }
-   public function __construct($key) {
-      
-      $this->initPostvar($key);
-      $this->name = $key;
-      
-   }
-}
-
-class postvar_group {
-   private $postvar;//postvar_withdata
-   public function __get($what) {
-      foreach ($this->postvar as $postvar) {
-         if ($postvar->name == $what) return $postvar;
-      }
-      throw new Exception("key name not found in group",2);
-   }
-   public function __construct() {
-      
-      $numargs = func_num_args();
-      $arg_list = func_get_args();
-      for ($i = 0; $i < $numargs; $i++) {
-         //echo "Argument $i is: " . $arg_list[$i] . "<br />\n";
-         $this->postvar[] = new postvar_withdata($arg_list[$i]);
-      }
-      
-   }
-   
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ * YOU SHOULD NOT NEED TO INCLUDE THIS FILE !!! 
+ *    IT ONLY NEEDED IF you are not using composer or some psr0/psr4 autoloading routine.
+ *    
+ * This file invokes includes to the files needed for inputvar namespaced class definitions.
+ * It also includes explanatory comments and a placeholder to an include for a file containing 
+ * optional class definitions for legacy class names.
+ * 
+ * PHP version >=5.6
+ * 
+ * Copyright (c) 2010-2015 Doug Bird. 
+ *    All Rights Reserved. 
+ *    
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * @license The MIT License (MIT) http://opensource.org/licenses/MIT
+ * @license GNU General Public License, version 3 (GPL-3.0) http://opensource.org/licenses/GPL-3.0
+ * @link https://github.com/katmore/inputvar
+ * @author     D. Bird <retran@gmail.com>
+ * @copyright  Copyright (c) 2010-2015 Doug Bird. All Rights Reserved.
+ * 
+ * @author D. Bird
+ * @link http://github.com/katmore/inputvar
+ */
+/**
+ * inputvar class definition files
+ */
+include_once(__DIR__.'/src/inputvar/invalidInput.php');
+include_once(__DIR__.'/src/inputvar/invalidEmail.php');
+include_once(__DIR__.'/src/inputvar/inputKeyNotFound.php');
+include_once(__DIR__.'/src/inputvar/keyExistsInterface.php');
+include_once(__DIR__.'/src/inputvar/keyExistsTrait.php');
+include_once(__DIR__.'/src/inputvar.php');
+include_once(__DIR__.'/src/inputvar/get.php');
+include_once(__DIR__.'/src/inputvar/post.php');
+include_once(__DIR__.'/src/inputvar/request.php');
+include_once(__DIR__.'/src/inputvar/value.php');
+include_once(__DIR__.'/src/inputvar/postGroup.php');
+include_once(__DIR__.'/src/inputvar/postWithKey.php');
+/**   
+ * The original inputvar package organized the class definitions into a single file
+ * and used nomenclature not compliant with psr-2/psr-4. For those that wish to avoid 
+ * having to refactor existing code I have provided classes recreating the
+ * naming and functionality of the old package.
+ * 
+ * To enable the legacy support:
+ * require the file /legacy-inputvar.php. 
+ * ie: require(__DIR__.'/legacy-inputvar.php'); 
+ * 
+ * @see /legacy-inputvar.php for legacy compatiblility with pre-2015-08 package.
+ */
+/*
+ * uncomment the following line to provide legacy class aliases.
+ */
+//include(__DIR__.'/legacy-inputvar.php');
