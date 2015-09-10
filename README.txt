@@ -24,6 +24,7 @@ http://example.com/getpage.php?pagename=poop
 
 The following code
 <?php
+use \inputvar\getvar;
 $page = new getvar('pagename');
 if ($page->exists())
 	echo $page->alphanum();
