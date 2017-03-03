@@ -1,5 +1,4 @@
 # inputvar
-access and sanitize user input
 
 *inputvar*'s purpose is for convenience of accessing client (user) input in a safe way.
 
@@ -8,7 +7,20 @@ By using the inputvar classes, you do not have to referece the PHP superglobals 
 There are also convenience methods that allow you to check if a variable 'exists',
 and provide sanitized values in various formats, eg: mysql escaped, base64, hex, alphanumeric, etc.
 
-## Usage:
+## Installation
+Add 'inputvar' as a dependency to your existing project
+**Using composer**
+```bash
+cd my_project_dir
+composer require katmore/flat
+```
+
+## Demo
+See [demo.php](./demo.php) for examples regarding the above methods.
+
+## Usage
+
+### Setting Values
 If the request URI is as follows:
 
 http://example.com/getpage.php?pagename=poop
@@ -40,40 +52,28 @@ $myreqvar = new reqvar('myreqvar');
 $myvarvar = new varvar('Some stuff I want to put and perhaps filter');
 ```
 
-The following methods are available to actually get the values
+### Getting the values
+The following methos are available to actually get the values...
+ * inputvar::myesc()
+ * inputvar::streetaddr
+ * inputvar::value
+ * inputvar::email
+ * inputvar::alphanumspace
+ * inputvar::alphanum
+ * inputvar::numeric
+ * inputvar::usphone
+ 
+See [demo.php](./demo.php) for examples regarding the above methods.
 
-```php
-//value escaped with real_escape_string
-//inputvar::myesc(mysqli $mysqli_resource);
-echo $myinputvar->myesc(mysqli $mysqli_resource);
+## Legal
+### Copyright
+inputvar. https://github.com/katmore/inptuvar
+Copyright (c) 2010-2017 Doug Bird. All Rights Reserved.
 
-//value striped of all chars except what is needed for a street address
-//inputvar::streetaddr();
-echo $myinputvar->streetaddr();
+### License
+inputvar is copyrighted free software.
+You may redistribute and modify it under either the terms and conditions of the
+"The MIT License (MIT)"; or the terms and conditions of the "GPL v3 License".
+See [LICENSE](https://github.com/katmore/inputvar/blob/master/LICENSE) and [GPLv3](https://github.com/katmore/inputvar/blob/master/GPLv3).
 
-//value stripped of HTML tags, high/low ascii chars
-//inputvar::value();
-echo $myinputvar->value();
-
-//value stripped except what is needed for email address
-//inputvar::email();
-echo $myinputvar->email();
-
-//value stripped except for alphanumeric chars and space
-//inputvar::alphanumspace();
-echo $myinputvar->alphanumspace();
-
-//value stripped except for alphanumeric chars
-//inputvar::alphanum();
-echo $myinputvar->alphanum();
-
-//value stripped except for numeric chars
-//inputvar::numeric();
-echo $myinputvar->numeric();
-
-//value formatted as US phone number
-//inputvar::usphone();
-echo $myinputvar->usphone();
-
-```
 

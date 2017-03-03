@@ -1,0 +1,13 @@
+.*
+!/.gitignore
+!/.bowerrc
+/vendor/
+/web/components/
+composer.lock
+npm-debug.log
+/bin/export-*
+/app/config/flat/SpyDash/BatchBucket.php
+/app/config/flat/SpyDash/OrigBucket.php
+/app/config/flat/SpyDash/ImageBucket.php
+/app/config/flat/SpyDash/Mongo.php
+/app/config/flat/SpyDash/MongoAuth.php
