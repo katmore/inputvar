@@ -29,7 +29,7 @@ The following code block...
 ```php
 $page = new getvar('pagename');
 if ($page->exists())
-	echo $page->alphanum();
+   echo $page->alphanum();
 ```
 
 will display the text 'poop'...
@@ -53,15 +53,15 @@ $myvarvar = new varvar('Some stuff I want to put and perhaps filter');
 ```
 
 ### Getting the values
-The following methos are available to actually get the values...
+The following methods are available to actually get the values...
  * inputvar::myesc()
- * inputvar::streetaddr
- * inputvar::value
- * inputvar::email
- * inputvar::alphanumspace
- * inputvar::alphanum
- * inputvar::numeric
- * inputvar::usphone
+ * inputvar::streetaddr()
+ * inputvar::value()
+ * inputvar::email()
+ * inputvar::alphanumspace()
+ * inputvar::alphanum()
+ * inputvar::numeric()
+ * inputvar::usphone()
  
 See [demo.php](./demo.php) for examples regarding the above methods.
 
