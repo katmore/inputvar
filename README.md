@@ -13,7 +13,7 @@ If the request URI is as follows:
 
 http://example.com/getpage.php?pagename=poop
 
-The following code
+The following code block...
 ```php
 $page = new getvar('pagename');
 if ($page->exists())
@@ -25,7 +25,7 @@ will display the text 'poop'...
 poop
 ```
 
-It can facilitate POST, GET, or any REQUEST var as follows
+*inputvar* can facilitate POST, GET, or any REQUEST var as follows
 ```php
 //POST var
 $mypostvar = new postvar('mypostvar');
