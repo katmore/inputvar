@@ -1,6 +1,4 @@
 # inputvar
-access and sanitize user input
-
 *inputvar*'s purpose is for convenience of accessing client (user) input in a safe way.
 
 By using the inputvar classes, you do not have to referece the PHP superglobals `$_GET`, `$_POST`, `$_REQUEST`, et. al.
