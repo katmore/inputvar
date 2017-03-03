@@ -8,7 +8,8 @@ There are also convenience methods that allow you to check if a variable 'exists
 and provide sanitized values in various formats, eg: mysql escaped, base64, hex, alphanumeric, etc.
 
 ## Installation
-Add 'inputvar' as a dependency to your existing project
+Add 'inputvar' as a dependency to your existing project...
+
 **Using composer**
 ```bash
 cd my_project_dir
