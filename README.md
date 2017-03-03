@@ -1,28 +1,32 @@
-Inputvar's purpose is mainly for convenience of accessing client (user)
-input in a more safe way.
+# inputvar
+access and sanitize user input
 
-By using the inputvar classes, you do not have to
-referece the $_GET, $_POST, $_REQUEST, et. al superglobals.
+*inputvar*'s purpose is for convenience of accessing client (user) input in a safe way.
+
+By using the inputvar classes, you do not have to referece the PHP superglobals `$_GET`, `$_POST`, `$_REQUEST`, et. al.
 
 There are also convenience methods that allow you to check if a variable 'exists',
 and provide sanitized values in various formats, eg: mysql escaped, base64, hex, alphanumeric, etc.
 
-Usage:
+## Usage:
 If the request URI is as follows:
 
 http://example.com/getpage.php?pagename=poop
 
 The following code
-<?php
+```php
 $page = new getvar('pagename');
 if ($page->exists())
 	echo $page->alphanum();
-?>
-will display the text 'poop'
+```
+
+will display the text 'poop'...
+```html
+poop
+```
 
 It can facilitate POST, GET, or any REQUEST var as follows
-
-<?php
+```php
 //POST var
 $mypostvar = new postvar('mypostvar');
 
@@ -34,12 +38,11 @@ $myreqvar = new reqvar('myreqvar');
 
 //arbitrary string
 $myvarvar = new varvar('Some stuff I want to put and perhaps filter');
-?>
+```
 
 The following methods are available to actually get the values
 
-<?php
-
+```php
 //value escaped with real_escape_string
 //inputvar::myesc(mysqli $mysqli_resource);
 echo $myinputvar->myesc(mysqli $mysqli_resource);
@@ -72,5 +75,5 @@ echo $myinputvar->numeric();
 //inputvar::usphone();
 echo $myinputvar->usphone();
 
-?>
+```
 
